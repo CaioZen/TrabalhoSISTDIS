@@ -14,13 +14,19 @@ public class GerenciadorIG {
     
     private FramePrincipal framePrincipal = null;
     private DialogUsuario dialogUsuario = null;
+    private static Atualizador atualizador = null;
+    private GerenciadorChat gerChat = null;
 
     public static GerenciadorIG getInstancia() {
         return instancia;
     }
 
     private GerenciadorIG() {
+        gerChat = new GerenciadorChat();
+    }
 
+    public GerenciadorChat getGerChat() {
+        return gerChat;
     }
 
     public JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
@@ -35,11 +41,12 @@ public class GerenciadorIG {
         return dlg;
     }
     
-    public void abrirFramePrincipal(){
+    public FramePrincipal abrirFramePrincipal(){
         if(framePrincipal == null){
             framePrincipal = new FramePrincipal();
         }
         framePrincipal.setVisible(true);
+        return framePrincipal;
     }
     
     public void abrirCadastro(){
@@ -48,6 +55,7 @@ public class GerenciadorIG {
     
     public static void main(String args[]){
         GerenciadorIG gerIG = GerenciadorIG.getInstancia();
-        gerIG.abrirFramePrincipal();
+        atualizador = new Atualizador();
+        atualizador.start();
     }
 }

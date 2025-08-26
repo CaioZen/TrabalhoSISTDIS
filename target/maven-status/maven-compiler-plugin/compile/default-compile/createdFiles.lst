@@ -1,4 +1,5 @@
 visao\DialogUsuario.class
+controlador\Atualizador.class
 controlador\GerenciadorIG.class
 visao\FramePrincipal.class
 visao\FramePrincipal$1.class

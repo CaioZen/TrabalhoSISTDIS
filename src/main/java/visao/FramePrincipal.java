@@ -11,7 +11,6 @@ import controlador.GerenciadorIG;
  * @author 2023122760123
  */
 public class FramePrincipal extends javax.swing.JFrame {
-
     /**
      * Creates new form FramePrincipal
      */
@@ -29,7 +28,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -40,24 +39,26 @@ public class FramePrincipal extends javax.swing.JFrame {
         textFieldServidor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        menu = new javax.swing.JMenuBar();
-        menuUsuario = new javax.swing.JMenu();
-        menuUsr = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Usuário", "Status"
+                "Usuários Online"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         textArea.setColumns(20);
         textArea.setRows(5);
@@ -81,20 +82,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         jTextField1.setForeground(new java.awt.Color(0, 0, 204));
         jTextField1.setText("Usuário");
         jTextField1.setFocusable(false);
-
-        menuUsuario.setText("Criação de Usuário");
-
-        menuUsr.setText("Criar Usuário");
-        menuUsr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuUsrActionPerformed(evt);
-            }
-        });
-        menuUsuario.add(menuUsr);
-
-        menu.add(menuUsuario);
-
-        setJMenuBar(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,16 +133,19 @@ public class FramePrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnviar)
                     .addComponent(btnRelatorio))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuUsrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsrActionPerformed
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         GerenciadorIG.getInstancia().abrirCadastro();
-    }//GEN-LAST:event_menuUsrActionPerformed
-
+    }//GEN-LAST:event_formComponentShown
+    
+    public void atualizarMensagens() {
+        textArea.setText(GerenciadorIG.getInstancia().getGerChat().enviarMensagem("ATT"));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnRelatorio;
@@ -164,13 +154,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JMenuBar menu;
-    private javax.swing.JMenuItem menuUsr;
-    private javax.swing.JMenu menuUsuario;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextArea textArea;
     private javax.swing.JTextField textFieldMensagem;
     private javax.swing.JTextField textFieldServidor;
     // End of variables declaration//GEN-END:variables
+
 }
