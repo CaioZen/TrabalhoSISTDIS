@@ -5,6 +5,7 @@
 package visao;
 
 import controlador.GerenciadorIG;
+import controlador.TableModelUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +16,14 @@ public class FramePrincipal extends javax.swing.JFrame {
     private DialogUsuario dialogUsuario = null;
     private String nomeServer;
     private String nomeUsuario;
+    private TableModelUsuario tableModel;
     /**
      * Creates new form FramePrincipal
      */
-    public FramePrincipal() {
+    public FramePrincipal(TableModelUsuario tableModel) {
+        this.tableModel = tableModel;
         initComponents();
+        tabela.setModel(tableModel);
     }
 
     /**
@@ -177,6 +181,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     
     public void atualizarMensagens() {
         textArea.setText(GerenciadorIG.getInstancia().getGerChat().enviarMensagem("ATT"));
+    }
+    
+    public void atualizarUsuarios(boolean condicao){
+        tableModel.Atualizar(nomeUsuario, condicao);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;

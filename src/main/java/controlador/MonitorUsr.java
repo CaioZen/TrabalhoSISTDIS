@@ -4,18 +4,34 @@
  */
 package controlador;
 
+import visao.FramePrincipal;
+
 /**
  *
  * @author Caio
  */
-public class MonitorUsr extends Thread{
+public class MonitorUsr extends Thread {
 
-    public MonitorUsr() {
+    private FramePrincipal frame;
+
+    public MonitorUsr(FramePrincipal frame) {
+        this.frame = frame;
     }
 
     @Override
     public void run() {
-        super.run(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        while (true) {
+            if (frame != null && frame.isVisible()) {
+                frame.atualizarUsuarios(true);
+            } else {
+                frame.atualizarUsuarios(false);
+            }
+            try {
+                Thread.sleep(1000); // Verifica a cada 1 segundo
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrompida: " + e.getMessage());
+            }
+        }
     }
-    
+
 }
