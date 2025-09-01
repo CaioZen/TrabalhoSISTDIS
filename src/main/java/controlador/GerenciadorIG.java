@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import servico.MeuCliente;
+import servico.MeuServidor;
 import visao.DialogUsuario;
 import visao.FramePrincipal;
 
@@ -14,6 +16,8 @@ public class GerenciadorIG {
     
     private FramePrincipal framePrincipal = null;
     private DialogUsuario dialogUsuario = null;
+    private static MeuCliente cliente = null;
+    private static MeuServidor servidor = null;
     private static Atualizador atualizador = null;
     private GerenciadorChat gerChat = null;
 
@@ -42,19 +46,20 @@ public class GerenciadorIG {
     }
     
     public FramePrincipal abrirFramePrincipal(){
-        if(framePrincipal == null){
-            framePrincipal = new FramePrincipal();
-        }
+        framePrincipal = new FramePrincipal();
         framePrincipal.setVisible(true);
+        framePrincipal.setNomeServer(cliente.getNomeDNS());
         return framePrincipal;
     }
     
-    public void abrirCadastro(){
-        dialogUsuario = (DialogUsuario) abrirJanela(framePrincipal, dialogUsuario, DialogUsuario.class);
+    public DialogUsuario abrirCadastro(){
+        return dialogUsuario = (DialogUsuario) abrirJanela(framePrincipal, dialogUsuario, DialogUsuario.class);
     }
     
     public static void main(String args[]){
         GerenciadorIG gerIG = GerenciadorIG.getInstancia();
+        servidor = new MeuServidor();
+        cliente = new MeuCliente();
         atualizador = new Atualizador();
         atualizador.start();
     }

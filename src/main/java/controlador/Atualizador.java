@@ -6,9 +6,11 @@ import visao.FramePrincipal;
 
 public class Atualizador extends Thread {
     private FramePrincipal frame = null;
+    private FramePrincipal frame2 = null;
 
     public Atualizador() {
         frame = GerenciadorIG.getInstancia().abrirFramePrincipal();
+        frame2 = GerenciadorIG.getInstancia().abrirFramePrincipal();
     }
 
     @Override
@@ -16,6 +18,7 @@ public class Atualizador extends Thread {
         while(true){
             try {
                 frame.atualizarMensagens();
+                frame2.atualizarMensagens();
                 Thread.sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Atualizador.class.getName()).log(Level.SEVERE, null, ex);

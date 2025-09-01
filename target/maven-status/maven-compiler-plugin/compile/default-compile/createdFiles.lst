@@ -1,5 +1,11 @@
+servico\MeuServidor.class
+visao\FramePrincipal$2.class
+visao\FramePrincipal$1.class
 visao\DialogUsuario.class
 controlador\Atualizador.class
+servico\MeuCliente.class
 controlador\GerenciadorIG.class
 visao\FramePrincipal.class
-visao\FramePrincipal$1.class
+controlador\GerenciadorChat.class
+persistencia\DataBase.class
+visao\DialogUsuario$1.class

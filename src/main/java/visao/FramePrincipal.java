@@ -5,12 +5,16 @@
 package visao;
 
 import controlador.GerenciadorIG;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author 2023122760123
  */
 public class FramePrincipal extends javax.swing.JFrame {
+    private DialogUsuario dialogUsuario = null;
+    private String nomeServer;
+    private String nomeUsuario;
     /**
      * Creates new form FramePrincipal
      */
@@ -38,7 +42,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textFieldServidor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textFieldUsr = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -68,6 +72,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         jLabel1.setText("Nova Mensagem:");
 
         btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         btnRelatorio.setText("Relatório");
 
@@ -79,9 +88,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Seu Usuário:");
 
-        jTextField1.setForeground(new java.awt.Color(0, 0, 204));
-        jTextField1.setText("Usuário");
-        jTextField1.setFocusable(false);
+        textFieldUsr.setForeground(new java.awt.Color(0, 0, 204));
+        textFieldUsr.setText("Usuário");
+        textFieldUsr.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +118,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldMensagem)
                             .addComponent(textFieldServidor)
-                            .addComponent(jTextField1))))
+                            .addComponent(textFieldUsr))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,7 +133,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldUsr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -139,9 +148,32 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setNomeServer(String nomeServer) {
+        this.nomeServer = nomeServer;
+    }
+
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        GerenciadorIG.getInstancia().abrirCadastro();
+        dialogUsuario = GerenciadorIG.getInstancia().abrirCadastro();
+        nomeUsuario = dialogUsuario.getNomeUsuario();
+        textFieldUsr.setText(nomeUsuario);
+        textFieldServidor.setText(nomeServer);
     }//GEN-LAST:event_formComponentShown
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        String msg = textFieldMensagem.getText();
+        
+        if(msg.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Insira a mensagem a ser enviada");
+            textFieldMensagem.requestFocus();
+        } else{
+            msg = "("+textFieldUsr.getText()+"): "+ msg;
+            String resposta = GerenciadorIG.getInstancia().getGerChat().enviarMensagem(msg);
+            
+            textArea.setText(resposta);
+            textFieldMensagem.setText("");
+            textFieldMensagem.requestFocus();
+        }
+    }//GEN-LAST:event_btnEnviarActionPerformed
     
     public void atualizarMensagens() {
         textArea.setText(GerenciadorIG.getInstancia().getGerChat().enviarMensagem("ATT"));
@@ -154,11 +186,11 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tabela;
     private javax.swing.JTextArea textArea;
     private javax.swing.JTextField textFieldMensagem;
     private javax.swing.JTextField textFieldServidor;
+    private javax.swing.JTextField textFieldUsr;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -13,4 +13,6 @@ public class GerenciadorChat {
         cliente = new MeuCliente();
         return cliente.enviaMensagem(msg);
     }
+    
+    
 }

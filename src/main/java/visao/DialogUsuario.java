@@ -1,6 +1,7 @@
 package visao;
 
 public class DialogUsuario extends javax.swing.JDialog {
+    private String nomeUsuario;
 
     public DialogUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -23,6 +24,11 @@ public class DialogUsuario extends javax.swing.JDialog {
         jLabel1.setText("Insira seu usuário");
 
         btnCriar.setText("Criar");
+        btnCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCriarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,6 +80,15 @@ public class DialogUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+    
+    private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
+        nomeUsuario = textFieldUsr.getText();
+        dispose();
+    }//GEN-LAST:event_btnCriarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriar;
