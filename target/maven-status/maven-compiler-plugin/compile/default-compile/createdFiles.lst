@@ -3,9 +3,12 @@ visao\FramePrincipal$2.class
 visao\FramePrincipal$1.class
 visao\DialogUsuario.class
 controlador\Atualizador.class
-servico\MeuCliente.class
 controlador\GerenciadorIG.class
 visao\FramePrincipal.class
-controlador\GerenciadorChat.class
-persistencia\DataBase.class
 visao\DialogUsuario$1.class
+controlador\Atualizador$1.class
+controlador\Atualizador$2.class
+servico\MeuCliente.class
+controlador\GerenciadorChat.class
+controlador\MonitorUsr.class
+persistencia\DataBase.class
