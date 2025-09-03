@@ -7,6 +7,8 @@ package visao;
 import controlador.GerenciadorIG;
 import controlador.TableModelUsuario;
 import javax.swing.JOptionPane;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -17,6 +19,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private String nomeServer;
     private String nomeUsuario;
     private TableModelUsuario tableModel;
+    private Map<String, Integer> contadorMensagens = new HashMap<>();
     /**
      * Creates new form FramePrincipal
      */
@@ -83,6 +86,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
 
         btnRelatorio.setText("Relatório");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Servidor:");
 
@@ -176,8 +184,25 @@ public class FramePrincipal extends javax.swing.JFrame {
             textArea.setText(resposta);
             textFieldMensagem.setText("");
             textFieldMensagem.requestFocus();
+            if (nomeUsuario != null && !nomeUsuario.isEmpty()) {
+                contadorMensagens.put(nomeUsuario, contadorMensagens.getOrDefault(nomeUsuario, 0) + 1);
+            }
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        StringBuilder relatorio = new StringBuilder();
+        relatorio.append("Relatório de Mensagens Enviadas por Usuário:\n\n");
+        if (contadorMensagens.isEmpty()) {
+            relatorio.append("Nenhuma mensagem enviada ainda.\n");
+        } else {
+            for (Map.Entry<String, Integer> entry : contadorMensagens.entrySet()) {
+                relatorio.append(entry.getKey()).append(": ")
+                        .append(entry.getValue()).append(" mensagem(ns)\n");
+            }
+        }
+        JOptionPane.showMessageDialog(this, relatorio.toString(), "Relatório", JOptionPane.INFORMATION_MESSAGE);
+    }   
     
     public void atualizarMensagens() {
         textArea.setText(GerenciadorIG.getInstancia().getGerChat().enviarMensagem("ATT"));
